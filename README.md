@@ -1,5 +1,8 @@
 # RailsApp
 
+![Screenshot From 2025-04-15 10-39-54](https://github.com/user-attachments/assets/bce37d5d-1790-4505-91bd-fa8d68549df0)
+![Screenshot From 2025-04-15 10-40-30](https://github.com/user-attachments/assets/ed1f5f35-007f-41a2-8dfb-b61d57583f68)
+
 ## Overview
 RailsApp is a Ruby on Rails application designed as a starter project to kickstart your development process. It includes essential components and configurations to help you build robust and scalable web applications quickly.
 
