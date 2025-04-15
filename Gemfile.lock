@@ -85,6 +85,7 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
+    byebug (12.0.0)
     capybara (3.40.0)
       addressable
       matrix
@@ -114,6 +115,8 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    groupdate (6.5.1)
+      activesupport (>= 7)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.1.0)
@@ -346,9 +349,11 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  byebug (~> 12.0)
   capybara
   debug
   faker (~> 3.5)
+  groupdate (~> 6.5)
   importmap-rails
   jbuilder
   kamal

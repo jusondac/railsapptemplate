@@ -3,7 +3,8 @@ class UserlistsController < ApplicationController
 
   # GET /userlists or /userlists.json
   def index
-    @pagy, @userlists = pagy(Userlist.all)
+    @q = Userlist.ransack(params[:q])
+    @pagy, @userlists = pagy(@q.result(distinct: true))
   end
 
   # GET /userlists/1 or /userlists/1.json
@@ -25,7 +26,7 @@ class UserlistsController < ApplicationController
 
     respond_to do |format|
       if @userlist.save
-        format.html { redirect_to @userlist, notice: "Userlist was successfully created." }
+        format.html { redirect_to userlists_path, notice: "Userlist was successfully created." }
         format.json { render :show, status: :created, location: @userlist }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class UserlistsController < ApplicationController
   def update
     respond_to do |format|
       if @userlist.update(userlist_params)
-        format.html { redirect_to @userlist, notice: "Userlist was successfully updated." }
+        format.html { redirect_to userlists_path, notice: "Userlist was successfully updated." }
         format.json { render :show, status: :ok, location: @userlist }
       else
         format.html { render :edit, status: :unprocessable_entity }
