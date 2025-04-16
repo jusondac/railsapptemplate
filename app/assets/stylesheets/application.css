@@ -8,6 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+ 
 .pagy {
     display: flex;
     font-family: sans-serif;
