@@ -1,0 +1,57 @@
+<button data-modal-target="editDataModal-<%= data.id %>" data-modal-toggle="editDataModal-<%= data.id %>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M15.232 4.768a1 1 0 00-1.414 0L4.768 13.232a1 1 0 00-.293.707V16a1 1 0 001 1h2.061a1 1 0 00.707-.293l9.05-9.05a1 1 0 000-1.414l-2.586-2.586zM6.414 14H5v-.414L13.586 5l1.414 1.414L6.414 14z" clip-rule="evenodd"></path>
+    </svg>
+    Edit
+</button>
+<div id="editDataModal-<%= data.id %>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    <div class="relative w-full h-full max-w-2xl md:h-auto">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                    Edit <%= title %>
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editDataModal-<%= data.id %>">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <%= form_with model: data, url: send(path, data), method: :patch, local: true do |f| %>
+                <% columns.each do |column| %>
+                <% unless column[:form] == false %>
+                <div class="mb-4">
+                    <%= f.label column[:field], column[:label], class: "block text-sm font-bold text-gray-700 dark:text-gray-300" %>
+                    <% case column[:type] %>
+                    <% when "text", "string" %>
+                    <%= f.text_field column[:field], placeholder: "Enter #{column[:label].downcase}", class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "email" %>
+                    <%= f.email_field column[:field], placeholder: "Enter #{column[:label].downcase}", class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "password" %>
+                    <%= f.password_field column[:field], placeholder: "Enter #{column[:label].downcase}", class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "text_area" %>
+                    <%= f.text_area column[:field], placeholder: "Enter #{column[:label].downcase}", class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "select" %>
+                    <%= f.select column[:field], column[:options], { prompt: "Select #{column[:label].downcase}" }, class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "date" %>
+                    <%= f.date_field column[:field], class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "datetime" %>
+                    <%= f.datetime_field column[:field], class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% when "check_box" %>
+                    <%= f.check_box column[:field], class: "mt-1 h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %>
+                    <% else %>
+                    <%= f.text_field column[:field], placeholder: "Enter #{column[:label].downcase}", class: "mt-1 block w-full rounded-md bg-gray-600 border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white p-2.5" %>
+                    <% end %>
+                </div>
+                <% end %>
+                <% end %>
+                <hr class="my-5 border-gray-300 dark:border-gray-600">
+                <div class="flex items-center space-x-2">
+                    <%= f.submit "Save Changes", class: "px-4 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-500" %>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
