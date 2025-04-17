@@ -1,5 +1,20 @@
 {
-    "emmet.includeLanguages": {
-        "erb": "html"
-    }
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.semanticHighlighting.enabled": false,
+  "emmet.includeLanguages": {
+    "erb": "html",
+    "html.erb": "html",
+    "html": "html"
+  },
+  "files.associations": {
+    "*.erb": "erb",
+    "*.html.erb": "html"
+  },
+  "[erb]": {
+    "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+  }
 }
