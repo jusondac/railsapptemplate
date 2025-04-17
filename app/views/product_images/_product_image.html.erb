@@ -1,0 +1,14 @@
+<div id="<%= dom_id product_image %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Product:</strong>
+    <%= product_image.product_id %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Image url:</strong>
+    <%= product_image.image_url %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Is primary:</strong>
+    <%= product_image.is_primary? ? "Yes" : "No" %>
+  </div>
+</div>

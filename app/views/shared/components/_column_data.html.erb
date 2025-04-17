@@ -1,11 +1,22 @@
 <%# _column_data.html.erb partial %>
 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-    <div class="<%= column[:bold] ? 'text-base font-semibold text-gray-900 dark:text-white' : '' %>">
-        <%= column[:strftime] ? data.send(column[:field]).strftime(column[:strftime]) : data.send(column[:field]) %>
-        <% if column[:copiable] %>
-        <button class="ml-2 text-blue-600 hover:underline dark:text-blue-400" onclick="navigator.clipboard.writeText('<%= data.send(column[:field]) %>')">
-            Copy
-        </button>
-        <% end %>
-    </div>
+  <div class="<%= column[:bold] ? 'text-base font-semibold text-gray-900 dark:text-white' : '' %>">
+    <% case column[:type] %>
+    <% when 'text' %>
+      <%= truncate(data.send(column[:field]), length: 30) %>
+    <% when 'datetime' %>
+      <%= column[:strftime] ? data.send(column[:field]).strftime(column[:strftime]) : data.send(column[:field]) %>
+    <% else %>
+      <% if column[:related_model] && data.respond_to?(column[:related_model]) %>
+      <%= link_to data.send(column[:related_model]).send(column[:related_field]), data.send(column[:related_model]) %>
+      <% else %>
+      <%= data.send(column[:field]) %>
+      <% end %>
+    <% end %>
+    <% if column[:copiable] %>
+      <button class="ml-2 text-blue-600 hover:underline dark:text-blue-400" onclick="navigator.clipboard.writeText('<%= data.send(column[:field]) %>')">
+        Copy
+      </button>
+    <% end %>
+  </div>
 </td>
