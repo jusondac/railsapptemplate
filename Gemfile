@@ -74,6 +74,6 @@ gem "groupdate", "~> 6.5"
 
 gem "byebug", "~> 12.0"
 
-gem "view_component", "~> 3.21"
+gem "view_component", "~> 3.22"
 
 gem "awesome_print", "~> 1.9"
