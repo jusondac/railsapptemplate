@@ -1,0 +1,28 @@
+<div class="flex flex-col">
+  <div class="overflow-x-auto">
+    <div class="inline-block min-w-full align-middle">
+      <div class="overflow-hidden shadow">
+        <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+          <thead class="bg-gray-100 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
+                <input type="checkbox" id="select_all" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded bg-gray-200 focus:ring focus:ring-blue-500 focus:ring-opacity-50 appearance-none">
+              </th>
+              <% @columns.each do |column| %>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
+                  <%= column[:label] %>
+                </th>
+              <% end %>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+            <%= content %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

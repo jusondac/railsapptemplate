@@ -1,0 +1,47 @@
+<tr>
+  <td class="px-6 py-4">
+    <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="datalist_ids[]" value="<%= @data.id %>">
+  </td>
+  <% @columns.each do |column| %>
+    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+      <div class="<%= column[:bold] ? 'text-base font-semibold text-gray-900 dark:text-white' : '' %>">
+        <% case column[:type] %>
+        <% when 'text' %>
+          <%= truncate(@data.send(column[:field]), length: 30) %>
+        <% when 'datetime' %>
+          <%= column[:strftime] ? @data.send(column[:field]).strftime(column[:strftime]) : @data.send(column[:field]) %>
+        <% else %>
+          <% if column[:related_model] && @@data.respond_to?(column[:related_model]) %>
+            <%= link_to @data.send(column[:related_model]).send(column[:related_field]), @data.send(column[:related_model]) %>
+          <% else %>
+            <%= @data.send(column[:field]) %>
+          <% end %>
+        <% end %>
+        <% if column[:copiable] %>
+          <button class="ml-2 text-blue-600 hover:underline dark:text-blue-400" onclick="navigator.clipboard.writeText('<%= @data.send(column[:field]) %>')">
+            Copy
+          </button>
+        <% end %>
+      </div>
+    </td>
+  <% end %>
+  <td class="p-4 space-x-2 whitespace-nowrap">
+    <div class="flex items-center space-x-2">
+      <!-- Edit -->
+      <%= render "shared/components/edit_modal", data: @data, title: "User", path: @actions.dig(0, :path), columns: @columns %>
+      <!-- Show -->
+      <%= link_to @data, class: "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" do %>
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5zm-.75 7a1 1 0 110-2 1 1 0 010 2z" clip-rule="evenodd"></path>
+        </svg>
+        Info
+      <% end %>
+      <%= button_to send(@actions.dig(1, :path), @data), method: :delete, data: { confirm: "Are you sure?" }, class: "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900" do %>
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+        Delete
+      <% end %>
+    </div>
+  </td>
+</tr>

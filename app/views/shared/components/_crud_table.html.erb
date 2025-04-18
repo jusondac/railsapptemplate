@@ -1,67 +1,80 @@
 <div class="flex flex-col">
-    <div class="overflow-x-auto">
-        <div class="inline-block min-w-full align-middle">
-            <div class="overflow-hidden shadow">
-                <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
-                    <thead class="bg-gray-100 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
-                                <input type="checkbox" id="select_all" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded bg-gray-200 focus:ring focus:ring-blue-500 focus:ring-opacity-50 appearance-none">
-                            </th>
-                            <% columns.each do |column| %>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
-                                <%= column[:label] %>
-                            </th>
-                            <% end %>
-                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
+  <div class="overflow-x-auto">
+    <div class="inline-block min-w-full align-middle">
+      <div class="overflow-hidden shadow">
+        <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
+          <thead class="bg-gray-100 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
+                <input type="checkbox" id="select_all" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded bg-gray-200 focus:ring focus:ring-blue-500 focus:ring-opacity-50 appearance-none">
+              </th>
+              <!-- I need to add this without changing it in table components
+              
+              Table = @column
+              TableItem = @data
+              
+              render(TableComponent.new(columns: columns)) do |component|
+                @datas.each do |data|
+                  component.with_item(data: data) do |item|
+                    
+                  end
+                end
+              end
 
-                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                        <% datas.each do |data| %>
-                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td class="px-6 py-4">
-                                <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="datalist_ids[]" value="<%= data.id %>">
-                            </td>
-                            <%= render partial: "shared/components/column_data", collection: columns, as: :column, locals: { data: data } %>
-
-                            <td class="p-4 space-x-2 whitespace-nowrap">
-                                <div class="flex items-center space-x-2">
-                                    <!-- Edit -->
-                                    <%= render "shared/components/edit_modal", data: data, title: thing, path: actions.dig(0, :path), columns: columns %>
-                                    <!-- Show -->
-                                    <%= link_to data, class: "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" do %>
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5zm-.75 7a1 1 0 110-2 1 1 0 010 2z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    Info
-                                    <% end %>
-                                    <%= button_to send(actions.dig(1, :path), data), method: :delete, data: { confirm: "Are you sure?" }, class: "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900" do %>
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    Delete
-                                    <% end %>
-                            </td>
-                        </tr>
-                        <% end %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+              -->
+              <% columns.each do |column| %>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
+                  <%= column[:label] %>
+                </th>
+              <% end %>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase dark:text-gray-300">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+            <% datas.each do |data| %>
+              <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-6 py-4">
+                  <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="datalist_ids[]" value="<%= data.id %>">
+                </td>
+                <%= render partial: "shared/components/column_data", collection: columns, as: :column, locals: { data: data } %>
+                <td class="p-4 space-x-2 whitespace-nowrap">
+                  <div class="flex items-center space-x-2">
+                    <!-- Edit -->
+                    <%= render "shared/components/edit_modal", data: data, title: thing, path: actions.dig(0, :path), columns: columns %>
+                    <!-- Show -->
+                    <%= link_to data, class: "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" do %>
+                      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.5a.75.75 0 001.5 0v-4.5zm-.75 7a1 1 0 110-2 1 1 0 010 2z" clip-rule="evenodd"></path>
+                      </svg>
+                      Info
+                    <% end %>
+                    <%= button_to send(actions.dig(1, :path), data), method: :delete, data: { confirm: "Are you sure?" }, class: "inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900" do %>
+                      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                      </svg>
+                      Delete
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const selectAllCheckbox = document.getElementById("select_all");
-            const checkboxes = document.querySelectorAll('input[name="datalist_ids[]"]');
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const selectAllCheckbox = document.getElementById("select_all");
+        const checkboxes = document.querySelectorAll('input[name="datalist_ids[]"]');
 
-            selectAllCheckbox.addEventListener("change", (e) => {
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = e.target.checked;
-                });
+        selectAllCheckbox.addEventListener("change", (e) => {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = e.target.checked;
             });
         });
-    </script>
+    });
+  </script>
 </div>

@@ -121,9 +121,14 @@
   and the tbody will follow the thead.
   if its make sense, and the the table component will have component.with_thead and component.with_tbody
   --->
-  <%= render "shared/components/crud_table" , thing: "user" , columns: Userlist.table_columns, datas: @userlists,
-        pagy: @pagy, actions: [ { name: "Edit" , path: "userlist_path" , icon: "edit" }, { name: "Delete" ,
-        path: "userlist_path" , icon: "trash" , method: :delete } ] %>
+  <%= render TableComponent.new(columns: Userlist.table_columns, title: "user", data: @userlists) do %>
+    <% @userlists.each do |user| %>
+      <%= render TableColumnComponent.new(data: user, columns: Userlist.table_columns, actions: Userlist.actions_buttons) %>
+    <% end %>
+  <% end %>
+  <%# render "shared/components/crud_table" , thing: "user" , columns: Userlist.table_columns, datas: @userlists, actions: [ 
+          { name: "Edit" , path: "userlist_path" , icon: "edit" }, 
+          { name: "Delete" , path: "userlist_path" , icon: "trash" , method: :delete } ] %>
   <%= render "shared/components/pagination" , pagy: @pagy %>
   <%= render "shared/footer" %>
 </div>

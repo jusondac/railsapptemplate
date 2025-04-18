@@ -12,4 +12,11 @@ class Userlist < ApplicationRecord
       { label: "Updated At", field: "updated_at", strftime: "%b %d, %Y ", form: false }
     ]
   end
+
+  def self.actions_buttons
+    [
+      { name: "Edit", path: "userlist_path", icon: "edit" },
+      { name: "Delete", path: "userlist_path", icon: "trash", method: :delete }
+    ]
+  end
 end
